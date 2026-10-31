@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Geocache Challenge</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="app">
+
+        <!-- ==================================================
+             START SCREEN
+        =================================================== -->
+
+        <section id="startScreen" class="screen">
+
+            <div class="card start-card">
+
+                <div class="game-icon">◆</div>
+
+                <h1 id="gameTitle">
+                    Geocache Challenge
+                </h1>
+
+                <p class="subtitle">
+                    Solve the caches. Collect the codes.
+                    Get the clues.
+                </p>
+
+                <div class="form-group">
+
+                    <label for="teamNameInput">
+                        Team Name
+                    </label>
+
+                    <input
+                        id="teamNameInput"
+                        type="text"
+                        placeholder="Enter your team name"
+                        maxlength="30"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="teamColorSelect">
+                        Team Color
+                    </label>
+
+                    <select id="teamColorSelect">
+
+                        <option value="red">
+                            Red
+                        </option>
+
+                        <option value="blue">
+                            Blue
+                        </option>
+
+                        <option value="green">
+                            Green
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    id="startButton"
+                    class="primary-button"
+                >
+                    Join Challenge
+                </button>
+
+                <div id="lobbyStatus" class="lobby-status hidden">
+                    <h3>Waiting for the other teams</h3>
+                    <p id="lobbyMessage">
+                        Waiting for all three teams to join...
+                    </p>
+                    <div id="teamReadyList"></div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             CACHE SCREEN
+        =================================================== -->
+
+        <section
+            id="cacheScreen"
+            class="screen hidden"
+        >
+
+            <header class="game-header">
+
+                <div>
+                    <div class="small-label">
+                        TEAM
+                    </div>
+
+                    <strong id="displayTeamName">
+                        Team
+                    </strong>
+                </div>
+
+                <div class="progress-container">
+
+                    <div class="small-label">
+                        PROGRESS
+                    </div>
+
+                    <strong id="displayProgress">
+                        1 / 3
+                    </strong>
+
+                </div>
+
+            </header>
+
+
+            <div class="card cache-card">
+
+                <div class="cache-number">
+                    CACHE <span id="cacheNumber">1</span>
+                </div>
+
+                <h2 id="cacheName">
+                    Cache 1
+                </h2>
+
+
+                <div id="timerContainer" class="timer-container">
+                    <div id="timer">10:00</div>
+                
+                    <button
+                        id="startTimerButton"
+                        class="primary-button"
+                        type="button"
+                    >
+                        I'm Here — Start Timer
+                    </button>
+                
+                    <p id="timerStatus">
+                        Your timer will start when you're ready to search.
+                    </p>
+                </div>
+
+
+                <!-- LOCATION -->
+
+                <div class="section">
+
+                    <h3>Location</h3>
+
+                    <p id="locationDescription">
+                        Location description
+                    </p>
+
+                    <div class="coordinates">
+
+                        <span id="latitude">
+                            35.000000
+                        </span>
+
+                        <span>,</span>
+
+                        <span id="longitude">
+                            -84.000000
+                        </span>
+
+                    </div>
+
+                    <button
+                        id="mapButton"
+                        class="secondary-button"
+                    >
+                        Open in Maps
+                    </button>
+
+                </div>
+
+
+                <!-- HINT -->
+
+                <div class="section">
+
+                    <h3>Hint</h3>
+
+                    <div class="hint-box">
+                        <p id="hintText">
+                            Hint
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- FIND BUTTON -->
+
+                <div class="section">
+
+                    <button
+                        id="foundButton"
+                        class="primary-button"
+                    >
+                        I Found the Cache
+                    </button>
+
+                </div>
+
+
+                <!-- RESET INSTRUCTIONS -->
+
+                <div class="section">
+
+                    <button
+                        id="resetInstructionsButton"
+                        class="text-button"
+                    >
+                        View Reset Instructions
+                    </button>
+
+                    <div
+                        id="resetInstructions"
+                        class="instructions hidden"
+                    >
+                        Reset instructions
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             CODE VERIFICATION SCREEN
+        =================================================== -->
+
+        <section
+            id="codeScreen"
+            class="screen hidden"
+        >
+
+            <div class="card">
+
+                <div class="success-icon">
+                    ✓
+                </div>
+
+                <h2>Cache Found</h2>
+
+                <p>
+                    Enter the code found inside the cache
+                    to confirm your find.
+                </p>
+
+                <div class="form-group">
+
+                    <label for="codeInput">
+                        Cache Code
+                    </label>
+
+                    <input
+                        id="codeInput"
+                        type="text"
+                        placeholder="Enter code"
+                        autocomplete="off"
+                        maxlength="20"
+                    >
+
+                </div>
+
+                <p
+                    id="codeError"
+                    class="error-message hidden"
+                >
+                    Incorrect code. Check the cache and try again.
+                </p>
+
+                <button
+                    id="confirmCodeButton"
+                    class="primary-button"
+                >
+                    Confirm Code
+                </button>
+
+                <button
+                    id="backToCacheButton"
+                    class="text-button"
+                >
+                    Back
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             CACHE COMPLETE SCREEN
+        =================================================== -->
+
+        <section
+            id="cacheCompleteScreen"
+            class="screen hidden"
+        >
+
+            <div class="card">
+
+                <div class="success-icon">
+                    ✓
+                </div>
+
+                <h2>Cache Confirmed</h2>
+
+                <p id="cacheCompleteMessage">
+                    Cache complete.
+                </p>
+
+                <button
+                    id="nextCacheButton"
+                    class="primary-button"
+                >
+                    Next Cache
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             TIME UP SCREEN
+        =================================================== -->
+
+        <section
+            id="timeUpScreen"
+            class="screen hidden"
+        >
+
+            <div class="card">
+
+                <div class="warning-icon">
+                    !
+                </div>
+
+                <h2>Time's Up</h2>
+
+                <p>
+                    Your time for this cache has expired.
+                </p>
+
+                <div class="instructions-box">
+
+                    <h3>How to Find It</h3>
+
+                    <p id="findInstructions">
+                        Find instructions
+                    </p>
+
+                </div>
+
+                <p>
+                    You may still find the cache and enter
+                    the code to continue.
+                </p>
+
+                <button
+                    id="timeUpFoundButton"
+                    class="primary-button"
+                >
+                    I Found the Cache
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             FINAL SCREEN
+        =================================================== -->
+
+        <section
+            id="finalScreen"
+            class="screen hidden"
+        >
+
+            <div class="card final-card">
+
+                <div class="final-icon">
+                    ★
+                </div>
+
+                <h1>Challenge Complete</h1>
+
+                <p id="completionMessage">
+                    CONGRATS
+                </p>
+
+                <div class="final-clues">
+
+                    <h3>For the best part: Food.</h3>
+
+                    <p id="finalClueText">
+                        ...
+                    </p>
+
+                </div>
+
+                <p class="final-note">
+                    Return to the church and wait for
+                    the other teams.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- CONFIGURATION MUST LOAD FIRST -->
+
+<script src="config.js"></script>
+
+<!-- APPLICATION CODE -->
+
+<script src="app.js"></script>
+
+</body>
+</html>
